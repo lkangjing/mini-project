@@ -13,7 +13,15 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+//是否是第一期
+function isFirst(index){
+  return index === 1 ? true:false
+}
+//是否是最后一个
+function isLatest(currentIndex,latestIndex){
+  return currentIndex === latestIndex ? true :false
+}
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,isFirst,isLatest
 }
