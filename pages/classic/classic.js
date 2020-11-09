@@ -6,6 +6,8 @@ Page({
    */
   data: {
     classic: null,
+    latest: true,
+    first: false,
   },
 
   /**
@@ -24,6 +26,12 @@ Page({
     console.log(e)
     let behavior = e.detail.behavior
     like(behavior, this.data.classic.id, this.data.classic.type)
+  },
+  onPrevious(){
+
+  },
+  onNext(){
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

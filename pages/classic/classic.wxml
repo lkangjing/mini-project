@@ -1,6 +1,9 @@
 <!-- pages/classic.wxml -->
-<view class="header">
-  <L-episode class="episode" index="{{classic.index}}" />
-  <L-like class="like" bindlike="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
+<view class="container">
+  <view class="header">
+    <L-episode class="episode" index="{{classic.index}}" />
+    <L-like class="like" bindlike="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
+  </view>
+  <L-movie img="{{classic.image}}" content="{{classic.content}}" />
+  <L-navi bindleft="onNext" bindright="onPrevious" class="navi" title="{{classic.title}}" first="{{first}}" latest="{{latest}}" />
 </view>
-<L-movie img="{{classic.image}}" content="{{classic.content}}" />

@@ -10,7 +10,6 @@ Component({
   },
   observers: {
     index: function (index) {
-      console.log('index改变了', index)
       let val = index < 10 ? '0' + index : index
       this.setData({
         _index: val,
