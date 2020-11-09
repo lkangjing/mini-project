@@ -1,4 +1,5 @@
 import { request } from '../utils/http'
+import { getKey } from '../utils/util'
 //喜欢,取消喜欢
 export function like(behavior, artID, category) {
   let url = behavior == 'like' ? 'like' : 'like/cancel'
@@ -16,28 +17,26 @@ export function getLatest(sCallback) {
   request({
     url: 'classic/latest',
     success: (res) => {
+      wx.setStorageSync(getKey(res.index), res)
       sCallback(res)
     },
   })
 }
-//获取当前期刊的上一期
-export function getPrevious(index,sCallback){
-  request({
-    url:'classic/' + index + '/previous',
-    success: (res) => {
-      sCallback(res)
-    },
-  })
+//获取当前期刊的上/下一期
+export function getClassic(index, nextOrPrev, sCallback) {
+  //缓存中寻找 ? API 写入到缓存
+  //缓存的key
+  let key = nextOrPrev === 'next' ? getKey(index + 1) : getKey(index - 1)
+  let classic = wx.getStorageSync(key)
+  if (!classic) {
+    request({
+      url: 'classic/' + index + '/' + nextOrPrev,
+      success: (res) => {
+        wx.setStorageSync(getKey(res.index), res)
+        sCallback(res)
+      },
+    })
+  } else {
+    sCallback(classic)
+  }
 }
-
-//获取当前期刊的下一期
-export function getNext(index,sCallback){
-  request({
-    url:'classic/' + index + '/next',
-    success: (res) => {
-      sCallback(res)
-    },
-  })
-}
-
-

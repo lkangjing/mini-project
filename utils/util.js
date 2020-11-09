@@ -14,14 +14,19 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 //是否是第一期
-function isFirst(index){
+ const isFirst = (index)=>{
   return index === 1 ? true:false
 }
 //是否是最后一个
-function isLatest(currentIndex,latestIndex){
+ const isLatest = (currentIndex,latestIndex) => {
   return currentIndex === latestIndex ? true :false
 }
 
+const getKey = (index) => {
+  let key = 'classic-' + index
+  return key
+}
+
 module.exports = {
-  formatTime: formatTime,isFirst,isLatest
+  formatTime: formatTime,isFirst,isLatest,getKey
 }

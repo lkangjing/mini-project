@@ -1,5 +1,5 @@
 // pages/classic.js
-import { like, getLatest ,getPrevious,getNext} from '../../models/api'
+import { like, getLatest ,getClassic} from '../../models/api'
 import {isFirst,isLatest} from '../../utils/util'
 Page({
   /**
@@ -30,21 +30,18 @@ Page({
     let behavior = e.detail.behavior
     like(behavior, this.data.classic.id, this.data.classic.type)
   },
+  //点击上一期
   onPrevious(){
-    let index = this.data.classic.index
-    getPrevious(index,(res) => {
-      let first = isFirst(res.index)
-      let latest= isLatest(res.index,this.data.latestIndex)
-      this.setData({
-        classic:res,
-        first,
-        latest
-      })
-    })
+    this.updateClassic('previous')
   },
+  //下一起
   onNext(){
+    this.updateClassic('next')
+  },
+  //更新当前数据
+  updateClassic(nextOrPrev){
     let index = this.data.classic.index
-    getNext(index,(res) => {
+    getClassic(index,nextOrPrev,(res) => {
       let first = isFirst(res.index)
       let latest= isLatest(res.index,this.data.latestIndex)
       this.setData({
