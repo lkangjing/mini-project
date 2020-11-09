@@ -1,4 +1,6 @@
 <!-- pages/classic.wxml -->
-<view class="container">
-  <L-like/>
+<view class="header">
+  <L-episode class="episode" index="{{classic.index}}" />
+  <L-like class="like" bindlike="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
 </view>
+<L-movie img="{{classic.image}}" content="{{classic.content}}" />
