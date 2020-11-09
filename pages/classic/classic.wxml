@@ -1,0 +1,4 @@
+<!-- pages/classic.wxml -->
+<view class="container">
+  <L-like/>
+</view>
