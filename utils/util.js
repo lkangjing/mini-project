@@ -1,3 +1,4 @@
+import {getClassicLikeStatus} from '../models/api'
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -26,6 +27,8 @@ const getKey = (index) => {
   let key = 'classic-' + index
   return key
 }
+
+
 
 module.exports = {
   formatTime: formatTime,isFirst,isLatest,getKey

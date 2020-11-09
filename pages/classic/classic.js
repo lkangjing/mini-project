@@ -1,6 +1,11 @@
 // pages/classic.js
-import { like, getLatest ,getClassic} from '../../models/api'
-import {isFirst,isLatest} from '../../utils/util'
+import {
+  like,
+  getLatest,
+  getClassic,
+  getClassicLikeStatus,
+} from '../../models/api'
+import { isFirst, isLatest } from '../../utils/util'
 Page({
   /**
    * 页面的初始数据
@@ -9,7 +14,9 @@ Page({
     classic: null,
     latest: true,
     first: false,
-    latestIndex:'',
+    latestIndex: '',
+    likeCount: 0,
+    likeStatus: '',
   },
 
   /**
@@ -19,9 +26,11 @@ Page({
     getLatest((res) => {
       console.log(res)
       this.setData({
-        //latest 
+        //latest
         classic: res,
-        latestIndex:res.index
+        latestIndex: res.index,
+        likeCount: res.fav_nums,
+        likeStatus: res.like_status,
       })
     })
   },
@@ -31,23 +40,32 @@ Page({
     like(behavior, this.data.classic.id, this.data.classic.type)
   },
   //点击上一期
-  onPrevious(){
+  onPrevious() {
     this.updateClassic('previous')
   },
   //下一起
-  onNext(){
+  onNext() {
     this.updateClassic('next')
   },
   //更新当前数据
-  updateClassic(nextOrPrev){
+  updateClassic(nextOrPrev) {
     let index = this.data.classic.index
-    getClassic(index,nextOrPrev,(res) => {
+    getClassic(index, nextOrPrev, (res) => {
+      this.getLikeStatus(res.id, res.type)
       let first = isFirst(res.index)
-      let latest= isLatest(res.index,this.data.latestIndex)
+      let latest = isLatest(res.index, this.data.latestIndex)
       this.setData({
-        classic:res,
+        classic: res,
         first,
-        latest
+        latest,
+      })
+    })
+  },
+  getLikeStatus(artID, category) {
+    getClassicLikeStatus(artID, category, (res) => {
+      this.setData({
+        likeStatus: res.like_status,
+        likeCount: res.fav_nums,
       })
     })
   },

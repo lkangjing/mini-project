@@ -12,6 +12,13 @@ export function like(behavior, artID, category) {
     },
   })
 }
+//获取红心状态
+export function getClassicLikeStatus(artID, category, sCallback) {
+  request({
+    url: 'classic/' + category + '/' + artID + '/favor',
+    success: sCallback,
+  })
+}
 //获取最后一期
 export function getLatest(sCallback) {
   request({
