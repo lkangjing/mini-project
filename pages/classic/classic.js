@@ -24,7 +24,6 @@ Page({
    */
   onLoad: function (options) {
     getLatest((res) => {
-      console.log(res)
       this.setData({
         //latest
         classic: res,
@@ -51,6 +50,7 @@ Page({
   updateClassic(nextOrPrev) {
     let index = this.data.classic.index
     getClassic(index, nextOrPrev, (res) => {
+      console.log(res)
       this.getLikeStatus(res.id, res.type)
       let first = isFirst(res.index)
       let latest = isLatest(res.index, this.data.latestIndex)

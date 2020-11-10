@@ -4,6 +4,8 @@
     <L-episode class="episode" index="{{classic.index}}" />
     <L-like class="like" bindlike="onLike" like="{{likeStatus}}" count="{{likeCount}}" />
   </view>
-  <L-movie img="{{classic.image}}" content="{{classic.content}}" />
+  <L-movie hidden="{{classic.type!=100}}" img="{{classic.image}}" content="{{classic.content}}" />
+  <L-music src="{{classic.url}}" title="{{classic.title}}" wx:if="{{classic.type==200}}" img="{{classic.image}}" content="{{classic.content}}" />
+  <L-essay hidden="{{classic.type!=300}}" img="{{classic.image}}" content="{{classic.content}}" />
   <L-navi bindleft="onNext" bindright="onPrevious" class="navi" title="{{classic.title}}" first="{{first}}" latest="{{latest}}" />
 </view>
