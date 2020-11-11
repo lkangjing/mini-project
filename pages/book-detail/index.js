@@ -34,9 +34,9 @@ Page({
       })
     })
     comments.then((res) => {
-      console.log(res);
+      console.log(res.comments);
       this.setData({
-        comments:res
+        comments:res.comments
       })
     })
   },
