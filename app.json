@@ -2,7 +2,8 @@
   "pages": [
     "pages/classic/classic",
     "pages/my/index",
-    "pages/book/index"
+    "pages/book/index",
+    "pages/book-detail/index"
   ],
   "requiredBackgroundModes": [
     "audio"

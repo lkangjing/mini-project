@@ -58,15 +58,15 @@ Component({
       }
     },
     monitorSwitch(){
-      //播放时间
+      //播放事件
       backAudioManager.onPlay(() => {
         this.recoverStatus()
       })
-      //暂停时间
+      //暂停事件
       backAudioManager.onPause(() => {
         this.recoverStatus()
       })
-      //关闭时间
+      //关闭事件
       backAudioManager.onStop(() => {
         this.recoverStatus()
       })

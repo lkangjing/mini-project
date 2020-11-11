@@ -1,39 +1,44 @@
-// pages/book/index.js
-import { getHotList,getMyBookCount } from '../../models/book'
+// pages/book-detail/index.js
+import {getDetail,getLikeStatus,getComments} from '../../models/book'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    books:[]
+    comments:[],
+    book:null,
+    likeStatus:false,
+    likeCount:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getHotList().then((res) => {
-        this.setData({
-          books:res
-        })
+    const bid = options.bid
+    const detail = getDetail(bid)
+    const likeStatus = getLikeStatus(bid)
+    const comments = getComments(bid)
+    detail.then((res) => {
+      console.log(res);
+      this.setData({
+        book:res
+      })
     })
-    //pending进行中  fulfilled已成功 rejected已失败
-    // const promise = new Promise((resolve,reject) => {
-    //   wx.getSystemInfo({
-    //     success: (res) => {
-    //       resolve(res)
-    //     },
-    //     fail: (error) => {
-    //       reject(error)
-    //     },
-    //   });   
-    // })
-    // promise.then((res) => {
-    //   console.log("success",res);
-    // },(error) => {
-    //   console.log("fail:",error);
-    // })
+    likeStatus.then((res) => {
+      console.log(res);
+      this.setData({
+        likeStatus:res.like_status,
+        likeCount:res.fav_nums
+      })
+    })
+    comments.then((res) => {
+      console.log(res);
+      this.setData({
+        comments:res
+      })
+    })
   },
 
   /**
