@@ -30,4 +30,15 @@ const getComments = (bid) => {
   })
 }
 
-export {getHotList,getMyBookCount,getDetail,getLikeStatus,getComments}
+const postComments = (bid,comment) => {
+  return request({
+    url:`book/add/short_comment`,
+    method:'POST',
+    data:{
+      book_id:bid,
+      content:comment
+    }
+  })
+}
+
+export {getHotList,getMyBookCount,getDetail,getLikeStatus,getComments,postComments}

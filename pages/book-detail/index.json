@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "L-tag":"/components/tag/index"
+    "L-tag":"/components/tag/index",
+    "L-like":"/components/like/index",
+    "L-mask":"/components/mask/index"
   }
 }

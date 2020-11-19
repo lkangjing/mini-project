@@ -1,5 +1,6 @@
 // pages/book-detail/index.js
-import {getDetail,getLikeStatus,getComments} from '../../models/book'
+import {getDetail,getLikeStatus,getComments,postComments} from '../../models/book'
+import {like} from '../../models/api'
 Page({
 
   /**
@@ -9,9 +10,50 @@ Page({
     comments:[],
     book:null,
     likeStatus:false,
-    likeCount:0
+    likeCount:0,
+    posting:false
   },
-
+  onLike(event){
+    const status = event.detail.behavior
+    like(status,this.data.book.id,400)
+  },
+  onFakePost(){
+    this.setData({
+      posting:true
+    })
+  },
+  onCancel(){
+    this.setData({
+      posting:false
+    })
+  },
+  onPost(event){
+    const comment = event.detail.text || event.detail.value
+    if (!comment) {
+      return
+    }
+    if (comment.length>12) {
+      wx.showToast({
+        title: '短评最多12个字',
+        icon: 'none'
+      })
+      return
+    }
+    postComments(this.data.book.id,comment).then(res=>{
+      wx.showToast({
+        title: '+1',
+        icon: 'none'
+      })
+      this.data.comments.unshift({
+        content:comment,
+        nums:1
+      })
+      this.setData({
+        comments:this.data.comments,
+        posting:false
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
