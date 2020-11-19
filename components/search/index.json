@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "L-tag":"/components/tag/index"
+    "L-tag":"/components/tag/index",
+    "L-book":"/components/book/index"
   }
 }

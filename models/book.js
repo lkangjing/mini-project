@@ -41,4 +41,20 @@ const postComments = (bid,comment) => {
   })
 }
 
-export {getHotList,getMyBookCount,getDetail,getLikeStatus,getComments,postComments}
+//获取热门词汇
+const getHotWords = ()=>{
+  return request({
+    url: 'book/hot_keyword'
+  })
+}
+
+const search = (start,q)=>{
+  return request({
+    url: 'book/search?summary=1',
+    data:{
+      q,start
+    }
+  })
+}
+
+export {search,getHotList,getMyBookCount,getDetail,getLikeStatus,getComments,postComments,getHotWords}

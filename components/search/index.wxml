@@ -7,7 +7,7 @@
         </view>
         <view bind:tap="onCancel" class='cancel'>取消</view>
     </view>
-    <view class="">
+    <view wx:if="{{!searching}}">
         <view class="history">
             <view class="title">
                 <view class="chunk"></view>
@@ -30,5 +30,10 @@
                 </block>
             </view>
         </view>
+    </view>
+    <view wx:if="{{searching}}" class="books-container">
+        <block wx:for="{{dataArr}}" wx:key="{{item.id}}">
+            <L-book book="{{item}}" class="book"/>
+        </block>
     </view>
 </view>

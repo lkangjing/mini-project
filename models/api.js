@@ -1,7 +1,7 @@
 import { request } from '../utils/http'
 import { getKey } from '../utils/util'
 //喜欢,取消喜欢
-export function like(behavior, artID, category) {
+export  const like = (behavior, artID, category) => {
   let url = behavior == 'like' ? 'like' : 'like/cancel'
   request({
     url: url,
@@ -13,14 +13,14 @@ export function like(behavior, artID, category) {
   })
 }
 //获取红心状态
-export function getClassicLikeStatus(artID, category, sCallback) {
+export const getClassicLikeStatus = (artID, category, sCallback) => {
   request({
     url: 'classic/' + category + '/' + artID + '/favor',
     success: sCallback,
   })
 }
 //获取最后一期
-export function getLatest(sCallback) {
+export const getLatest = (sCallback) => {
   request({
     url: 'classic/latest',
     success: (res) => {
@@ -30,7 +30,7 @@ export function getLatest(sCallback) {
   })
 }
 //获取当前期刊的上/下一期
-export function getClassic(index, nextOrPrev, sCallback) {
+export const getClassic = (index, nextOrPrev, sCallback) => {
   //缓存中寻找 ? API 写入到缓存
   //缓存的key
   let key = nextOrPrev === 'next' ? getKey(index + 1) : getKey(index - 1)
@@ -46,10 +46,4 @@ export function getClassic(index, nextOrPrev, sCallback) {
   } else {
     sCallback(classic)
   }
-}
-//获取热门词汇
-export function getHotWords(sCallback){
-  return request({
-    url: 'book/hot_keyword'
-  })
 }

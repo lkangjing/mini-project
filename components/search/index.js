@@ -1,6 +1,6 @@
 // components/search/index.js
 import {addToHistory,getHistory} from '../../utils/util'
-import {getHotWords} from '../../models/api'
+import {getHotWords,search} from '../../models/book'
 Component({
   /**
    * 组件的属性列表
@@ -14,7 +14,9 @@ Component({
    */
   data: {
     historyWords:[],
-    hotWords:[]
+    hotWords:[],
+    dataArr:[],
+    searching:false
   },
   attached(){
     const historyWords = getHistory()
@@ -22,7 +24,9 @@ Component({
       historyWords
     })
     getHotWords().then(res=>{
-      console.log("remensousuo",res);
+      this.setData({
+        hotWords:res.hot
+      })
     })
     
   },
@@ -34,9 +38,16 @@ Component({
       this.triggerEvent('cancel',{},{})
     },
     onConfirm(e){
+      this.setData({
+        searching:true
+      })
       const word = e.detail.value || e.detail.text
-      console.log("word",word);
-      addToHistory(word)
+      search(0,word).then(res=>{
+        this.setData({
+          dataArr:res.books
+        })
+        addToHistory(word)
+      })
     }
   }
 })
