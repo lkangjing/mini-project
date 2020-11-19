@@ -1,10 +1,10 @@
 {
   "usingComponents": {
     "L-like":"/components/like/index",
-    "L-movie":"/components/classic/movie",
-    "L-music":"/components/classic/music",
-    "L-essay":"/components/classic/essay",
-    "L-episode":"/components/episode",
-    "L-navi":"/components/navi"
+    "L-movie":"/components/classic/movie/index",
+    "L-music":"/components/classic/music/index",
+    "L-essay":"/components/classic/essay/index",
+    "L-episode":"/components/episode/index",
+    "L-navi":"/components/navi/index"
   }
 }

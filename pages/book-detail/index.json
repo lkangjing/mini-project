@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "L-tag":"/components/tag"
+    "L-tag":"/components/tag/index"
   }
 }
