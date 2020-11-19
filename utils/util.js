@@ -28,8 +28,32 @@ const getKey = (index) => {
   return key
 }
 
+const getHistory = ()=>{
+  const words = wx.getStorageSync('q')
+  if (!words) {
+    return []
+  }
+  return words
+}
 
+const getHot = ()=>{
+  
+}
+
+const addToHistory = (keyword)=>{
+  console.log(keyword);
+  let words = getHistory()
+  let has = words.includes(keyword)
+  if (!has) {
+    if (words.length>=10) {
+      words.pop()
+    }
+    words.unshift(keyword)
+    wx.setStorageSync('q',words)
+  }
+  
+}
 
 module.exports = {
-  formatTime: formatTime,isFirst,isLatest,getKey
+  formatTime,isFirst,isLatest,getKey,addToHistory,getHot,getHistory
 }

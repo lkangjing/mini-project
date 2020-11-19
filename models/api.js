@@ -47,3 +47,9 @@ export function getClassic(index, nextOrPrev, sCallback) {
     sCallback(classic)
   }
 }
+//获取热门词汇
+export function getHotWords(sCallback){
+  return request({
+    url: 'book/hot_keyword'
+  })
+}

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "L-book":"/components/book/index"
+    "L-book":"/components/book/index",
+    "L-search":"/components/search/index"
   }
 }

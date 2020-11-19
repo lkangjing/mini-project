@@ -58,29 +58,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading();
     const bid = options.bid
     const detail = getDetail(bid)
     const likeStatus = getLikeStatus(bid)
     const comments = getComments(bid)
-    detail.then((res) => {
+
+    Promise.all([detail,likeStatus,comments]).then(res=>{
       console.log(res);
       this.setData({
-        book:res
+        book:res[0],
+        comments:res[2].comments,
+        likeStatus:res[1].like_status,
+        likeCount:res[1].fav_nums
       })
+      wx.hideLoading();
     })
-    likeStatus.then((res) => {
-      console.log(res);
-      this.setData({
-        likeStatus:res.like_status,
-        likeCount:res.fav_nums
-      })
-    })
-    comments.then((res) => {
-      console.log(res.comments);
-      this.setData({
-        comments:res.comments
-      })
-    })
+
+    // detail.then((res) => {
+    //   console.log(res);
+    //   this.setData({
+    //     book:res
+    //   })
+    // })
+    // likeStatus.then((res) => {
+    //   console.log(res);
+    //   this.setData({
+    //     likeStatus:res.like_status,
+    //     likeCount:res.fav_nums
+    //   })
+    // })
+    // comments.then((res) => {
+    //   console.log(res.comments);
+    //   this.setData({
+    //     comments:res.comments
+    //   })
+    // })
   },
 
   /**
