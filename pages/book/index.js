@@ -1,5 +1,6 @@
 // pages/book/index.js
-import { getHotList,getMyBookCount } from '../../models/book'
+import { getHotList } from '../../models/book';
+import {randomStr} from '../../utils/util'
 Page({
 
   /**
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     books:[],
-    searching:false
+    searching:false,
+    more:''
   },
   onSearch(){
     this.setData({
@@ -85,13 +87,16 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log("222");
+    this.setData({
+      more:randomStr(16)
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    
   }
 })

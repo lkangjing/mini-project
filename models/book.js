@@ -49,6 +49,7 @@ const getHotWords = ()=>{
 }
 
 const search = (start,q)=>{
+  console.log("q",q);
   return request({
     url: 'book/search?summary=1',
     data:{
