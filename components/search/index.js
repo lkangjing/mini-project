@@ -71,6 +71,7 @@ Component({
    */
   methods: {
     onCancel(e){
+      this.initialLize()
       this.triggerEvent('cancel',{},{})
     },
     onConfirm(e){
@@ -78,22 +79,24 @@ Component({
         searching:true,
       })
       this._showLoadingCenter()
-      this.initialLize()
+      // this.initialLize()
       const word = e.detail.value || e.detail.text
+      this.setData({
+        word
+      })
       search(0,word).then(res=>{
         this.setDataArr(res.books)
         this.setTotal(res.total)
-        this.setData({
-          word
-        })
         addToHistory(word)
         this._hideLoadingCenter()
       })
     },
     onDelete(e){
       console.log("ondelete");
+      this.initialLize()
       this.setData({
-        searching:false
+        searching:false,
+        word:''
       })
     },
     _showLoadingCenter(){

@@ -1,7 +1,8 @@
 const paginationBhv = Behavior({
     data:{
         dataArr:[],
-        total:null
+        total:null,
+        noneResult:false
     },
     methods:{
         setDataArr(newArr){
@@ -15,6 +16,11 @@ const paginationBhv = Behavior({
         },
         setTotal(total){
             this.data.total = total
+            if (total == 0) {
+                this.setData({
+                    noneResult:true
+                })
+            }
         },
         hasMore(){
             if (this.data.dataArr.length>=this.data.total) {
@@ -25,7 +31,8 @@ const paginationBhv = Behavior({
         },
         initialLize(){
             this.setData({
-                dataArr:[]
+                dataArr:[],
+                noneResult:false
             })
             this.data.total = null
         }
