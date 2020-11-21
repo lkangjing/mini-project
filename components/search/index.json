@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "L-tag":"/components/tag/index",
-    "L-book":"/components/book/index"
+    "L-book":"/components/book/index",
+    "L-loading":"/components/loading/index"
   }
 }

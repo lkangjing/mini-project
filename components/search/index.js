@@ -1,6 +1,7 @@
 // components/search/index.js
 import {addToHistory,getHistory} from '../../utils/util';
 import {getHotWords,search} from '../../models/book'
+import {paginationBhv} from '../behaviors/pagination'
 Component({
   /**
    * 组件的属性列表
@@ -10,6 +11,7 @@ Component({
       type:String,
     }
   },
+  behaviors:[paginationBhv],
   observers:{
     more(more){
       if (!this.data.word) {
@@ -18,17 +20,26 @@ Component({
       if(this.data.loading){
         return
       }
-      const length = this.data.dataArr.length
-      this.setData({
-        loading:true
-      })
-      search(length,this.data.word).then(res=>{
-        const tempArr = this.data.dataArr.concat(res.books)
+      // const length = this.data.dataArr.length
+      // this.setData({
+      //   loading:true
+      // })
+      if(this.hasMore()){
         this.setData({
-          dataArr:tempArr,
-          loading:false
+          loading : true
         })
-      })
+        search(this.getCurrentStart(),this.data.word).then(res=>{
+          // const tempArr = this.data.dataArr.concat(res.books)
+          this.setDataArr(res.books)
+          this.setData({
+            loading : false
+          })
+        },err=>{
+          this.setData({
+            loading : false
+          })
+        })
+      }
     }
   },
 
@@ -38,10 +49,10 @@ Component({
   data: {
     historyWords:[],
     hotWords:[],
-    dataArr:[],
     searching:false,
     word:'',
-    loading:false
+    loading:false,
+    loadingCenter:false
   },
   attached(){
     const historyWords = getHistory()
@@ -59,30 +70,40 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    load_more(){
-      
-    },
     onCancel(e){
       this.triggerEvent('cancel',{},{})
     },
     onConfirm(e){
       this.setData({
-        searching:true
+        searching:true,
       })
+      this._showLoadingCenter()
+      this.initialLize()
       const word = e.detail.value || e.detail.text
-      
       search(0,word).then(res=>{
+        this.setDataArr(res.books)
+        this.setTotal(res.total)
         this.setData({
-          dataArr:res.books,
           word
         })
         addToHistory(word)
+        this._hideLoadingCenter()
       })
     },
     onDelete(e){
       console.log("ondelete");
       this.setData({
         searching:false
+      })
+    },
+    _showLoadingCenter(){
+      this.setData({
+        loadingCenter:true
+      })
+    },
+    _hideLoadingCenter(){
+      this.setData({
+        loadingCenter:false
       })
     }
   }
